@@ -17,9 +17,6 @@ class TestAccountModel(TestCase):
     def setUpClass(cls):
         """ Load data needed by tests """
         db.create_all()  # make our sqlalchemy tables
-        global ACCOUNT_DATA
-        with open('tests/fixtures/account_data.json') as json_data:
-            ACCOUNT_DATA = json.load(json_data)
 
     @classmethod
     def tearDownClass(cls):
@@ -28,7 +25,6 @@ class TestAccountModel(TestCase):
 
     def setUp(self):
         """Truncate the tables"""
-        self.rand = randrange(0, len(ACCOUNT_DATA))
         db.session.query(Account).delete()
         db.session.commit()
 
