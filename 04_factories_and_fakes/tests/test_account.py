@@ -6,6 +6,7 @@ from random import randrange
 from unittest import TestCase
 from models import db
 from models.account import Account, DataValidationError
+from factories import AccountFactory
 
 ACCOUNT_DATA = {}
 
@@ -41,15 +42,14 @@ class TestAccountModel(TestCase):
 
     def test_create_all_accounts(self):
         """ Test creating multiple Accounts """
-        for data in ACCOUNT_DATA:
-            account = Account(**data)
+        for _in in range(10):
+            account = AccountFactory()
             account.create()
-        self.assertEqual(len(Account.all()), len(ACCOUNT_DATA))
+        self.assertEqual(len(Account.all()), 10)
 
     def test_create_an_account(self):
-        """ Test Account creation using known data """
-        data = ACCOUNT_DATA[self.rand] # get a random account
-        account = Account(**data)
+        """ Test Account creation using known data """ # get a random account
+        account = AccountFactory()
         account.create()
         self.assertEqual(len(Account.all()), 1)
 
@@ -61,8 +61,7 @@ class TestAccountModel(TestCase):
 
     def test_to_dict(self):
         """ Test account to dict """
-        data = ACCOUNT_DATA[self.rand] # get a random account
-        account = Account(**data)
+        account = AccountFactory()
         result = account.to_dict()
         self.assertEqual(account.name, result["name"])
         self.assertEqual(account.email, result["email"])
@@ -72,7 +71,7 @@ class TestAccountModel(TestCase):
 
     def test_from_dict(self):
         """ Test account from dict """
-        data = ACCOUNT_DATA[self.rand] # get a random account
+        data = AccountFactory().to_dict() # get a random account
         account = Account()
         account.from_dict(data)
         self.assertEqual(account.name, data["name"])
@@ -82,8 +81,7 @@ class TestAccountModel(TestCase):
 
     def test_update_an_account(self):
         """ Test Account update using known data """
-        data = ACCOUNT_DATA[self.rand] # get a random account
-        account = Account(**data)
+        account = AccountFactory()
         account.create()
         self.assertIsNotNone(account.id)
         account.name = "Rumpelstiltskin"
@@ -93,15 +91,13 @@ class TestAccountModel(TestCase):
 
     def test_invalid_id_on_update(self):
         """ Test invalid ID update """
-        data = ACCOUNT_DATA[self.rand] # get a random account
-        account = Account(**data)
+        account = AccountFactory()
         account.id = None
         self.assertRaises(DataValidationError, account.update)
 
     def test_delete_an_account(self):
         """ Test Account delete using known data """
-        data = ACCOUNT_DATA[self.rand] # get a random account
-        account = Account(**data)
+        account = AccountFactory()
         account.create()
         self.assertEqual(len(Account.all()), 1)
         account.delete()
