@@ -8,7 +8,7 @@ def step_impl(context):
     # Assert the status code is 200
     assert response.status_code == 200
     
-@when("a user clicks the 'Hit' button")
+@when("a user clicks the \"Hit\" button")
 def step_impl(context):
     # Send a post request to the appropriate route to hit
     response = requests.post(f"{context.base_url}/hit")
