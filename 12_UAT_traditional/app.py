@@ -41,7 +41,7 @@ def handle_pets():
         category = request.args.get('category')
         if category:
             # --- BUG 2: "Wrong Feature" ---
-            # AC-5 says search must be case-insensitive.
+            # Search should be case-insensitive.
             # The developer made it case-SENSITIVE, breaking the rule.
             matching_pets = [pet for pet in pets.values() if pet['category'] == category]
             return jsonify(matching_pets)
