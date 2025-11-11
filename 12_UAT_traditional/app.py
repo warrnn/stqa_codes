@@ -35,13 +35,13 @@ def handle_pets():
         return response_data
 
     if request.method == 'GET':
-        # --- BUG 3: "Missing Feature" ---
-        # This endpoint ignores the 'name' param.
+        # --- BUG 1: "Missing Feature" ---
+        # This endpoint ignores the 'name' param, making it impossible to search by name.
 
         category = request.args.get('category')
         if category:
-            # --- BUG 1: "Wrong Feature" ---
-            # AC-2 says search must be case-insensitive.
+            # --- BUG 2: "Wrong Feature" ---
+            # AC-5 says search must be case-insensitive.
             # The developer made it case-SENSITIVE, breaking the rule.
             matching_pets = [pet for pet in pets.values() if pet['category'] == category]
             return jsonify(matching_pets)
@@ -59,13 +59,9 @@ def update_pet(pet_id):
     data = request.get_json()
     pet = pets[pet_id]
     
+    # --- BUG 3: "Wrong Feature" ---
+    # Only the name and category are updated, the rest are not.
     pet['name'] = data['name']
-
-    # --- BUG 2: "Server Crash" (500 Error) ---
-    # AC-3 says we can update just a name.
-    # The developer assumed 'category' would always be included.
-    # If 'category' is missing from the JSON, this line will
-    #   raise a KeyError, causing a 500 Internal Server Error.
     pet['category'] = data['category']
 
     pets[pet_id] = pet
