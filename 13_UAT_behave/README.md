@@ -2,7 +2,7 @@
 
 In this exercise, we will automate our entire UAT Test Plan. You can find the traditional UAT scenarios already created in the file `UAT_spreadsheet.xlsx`. Our goal is to convert them into a "living document" that automatically runs our tests in a real browser.
 
-# Part 1: Create the Directory Structure
+## Part 1: Create the Directory Structure
 
 Create the default directory structure for `behave`:
 ```
@@ -17,13 +17,13 @@ Create the default directory structure for `behave`:
       |-- steps/
 ```
 
-# Part 2: Write the Feature File
+## Part 2: Write the Feature File
 
 This is our new, automated UAT plan. We will translate all 5 test cases from our spreadsheet into Gherkin scenarios.
 1. Inside the `features/` folder, create a new file named `pet_shop.feature`.
 2. Translate each test case from the spreadsheet into one Gherkin scenario in the feature file.
 
-## Example solution for part 2
+### Example solution for part 2
 
 ```
 Feature: Pet CRUD & Search
@@ -64,11 +64,11 @@ Feature: Pet CRUD & Search
     And the pet list should not show "Buddy"
 ```
 
-# Part 3: Prepare the Testing Environment
+## Part 3: Prepare the Testing Environment
 
 In this part we will prepare the hooks necessary for running the tests. Initialize the Selenium Chrome WebDriver.
 
-## Example solution for part 3
+### Example solution for part 3
 
 ```py
 from os import getenv
@@ -94,14 +94,14 @@ def after_all(context):
     context.driver.quit()
 ```
 
-# Part 4: Write the Python Steps
+## Part 4: Write the Python Steps
 
 In this part, we will write the Python and Selenium code that `behave` will use to execute our Gherkin steps.
 
 1. Inside the `features/steps/` folder, create a new file named `pet_shop_steps.py`.
 2. Create all the necessary steps for the scenarios.
 
-## Example solution for part 4
+### Example solution for part 4
 
 ```py
 import requests
@@ -190,6 +190,6 @@ def step_impl(context, pet_category):
     time.sleep(0.5)
 ```
 
-# Part 5: Run the Tests
+## Part 5: Run the Tests
 
 Run `behave` and observe the results.
