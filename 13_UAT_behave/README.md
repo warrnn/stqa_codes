@@ -37,7 +37,7 @@ Feature: Pet CRUD & Search
 
   Scenario: Validate pet creation
     When I create a pet with name "Buddy", category "dog", gender "MALE", birthday "2024-01-01"
-    Then the pet list should show "Buddy" with all the correct details: "dog", "MALE", "2024-01-01"
+    Then the pet list should show "Buddy" with the correct details: "dog", "MALE", "2024-01-01"
 
   Scenario: Validate pet update
     When I create a pet with name "Buddy", category "dog", gender "MALE", birthday "2024-01-01"
