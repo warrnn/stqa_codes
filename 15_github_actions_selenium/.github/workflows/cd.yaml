@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11.1'
+          python-version: "3.11.1"
 
       - name: Install Dependencies
         run: |
@@ -30,7 +30,7 @@ jobs:
         run: |
           # The '&' runs it in the background
           python app.py &
-          
+
           # Wait for it to be ready
           echo "Waiting for server..."
           for i in {1..10}; do
